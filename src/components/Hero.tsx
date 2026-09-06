@@ -51,7 +51,6 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover opacity-70"
-          style={{ objectPosition: "50% 25%" }}
           src="https://66hwx1e1jhv7myrl.public.blob.vercel-storage.com/hero-reel.mp4"
           poster="/images/hero-poster.jpg"
           autoPlay
@@ -118,6 +117,15 @@ export default function Hero() {
           className="h-9 w-[1px] bg-gradient-to-b from-ink/60 to-transparent"
         />
       </motion.div>
+
+      <a
+        href="https://www.pexels.com/video/dynamic-video-editing-on-professional-software-36036747/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-3 right-4 z-10 text-xs text-ink/35 transition-colors hover:text-ink/60"
+      >
+        Background footage: Pexels
+      </a>
     </section>
   );
 }
