@@ -9,23 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.111.3",
+    "@react-three/fiber": "^8.17.5",
+    "@vercel/blob": "^2.8.0",
+    "framer-motion": "^11.3.24",
+    "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.35",
-    "framer-motion": "^11.3.24",
-    "three": "^0.167.1",
-    "@react-three/fiber": "^8.17.5",
-    "@react-three/drei": "^9.111.3"
+    "three": "^0.167.1"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/three": "^0.167.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.35"
+    "typescript": "^5"
   }
 }
