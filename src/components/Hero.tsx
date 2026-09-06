@@ -52,7 +52,7 @@ export default function Hero() {
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover opacity-70"
           style={{ objectPosition: "50% 25%" }}
-          src="/videos/hero-reel.mp4"
+          src="https://66hwx1e1jhv7myrl.public.blob.vercel-storage.com/hero-reel.mp4"
           poster="/images/hero-poster.jpg"
           autoPlay
           loop
