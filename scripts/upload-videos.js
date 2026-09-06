@@ -48,6 +48,10 @@ async function main() {
       access: "public",
       addRandomSuffix: false,
       allowOverwrite: true,
+      // Explicit token, since an ambient VERCEL_OIDC_TOKEN (pulled alongside
+      // BLOB_READ_WRITE_TOKEN) makes the SDK prefer OIDC auth, which isn't
+      // enabled for the "development" environment and errors out otherwise.
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
 
     console.log(`  -> ${blob.url}`);

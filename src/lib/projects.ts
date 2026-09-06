@@ -1,3 +1,5 @@
+const BLOB_BASE = "https://66hwx1e1jhv7myrl.public.blob.vercel-storage.com";
+
 export type ProjectStatus = "Completed" | "In Production" | "Coming Soon";
 
 export interface ProjectVideo {
@@ -33,7 +35,7 @@ export const projects: Project[] = [
     tags: ["Veo 3.1", "Vertical 9:16", "Microdrama"],
     videos: [
       {
-        src: "/videos/project-ceo-drama.mp4",
+        src: `${BLOB_BASE}/project-ceo-drama.mp4`,
         poster: "/images/project-ceo-drama.jpg",
         label: "Episode 01",
       },
@@ -52,12 +54,12 @@ export const projects: Project[] = [
     tags: ["Veo 3.1 Lite", "UGC", "2 Campaigns"],
     videos: [
       {
-        src: "/videos/ugc-video-1.mp4",
+        src: `${BLOB_BASE}/ugc-video-1.mp4`,
         poster: "/images/ugc-video-1.jpg",
         label: "Video 1 — DTC spec ad",
       },
       {
-        src: "/videos/ugc-video-2.mp4",
+        src: `${BLOB_BASE}/ugc-video-2.mp4`,
         poster: "/images/ugc-video-2.jpg",
         label: "Video 2 — Gig intro",
       },
@@ -76,17 +78,17 @@ export const projects: Project[] = [
     tags: ["Wan 2.2 14B", "Vertical 9:16", "6-Ad Series"],
     videos: [
       {
-        src: "/videos/spec-video-intro.mp4",
+        src: `${BLOB_BASE}/spec-video-intro.mp4`,
         poster: "/images/spec-video-intro.jpg",
         label: "Intro",
       },
       {
-        src: "/videos/spec-video-1.mp4",
+        src: `${BLOB_BASE}/spec-video-1.mp4`,
         poster: "/images/spec-video-1.jpg",
         label: "Ad 1 — FlowStack",
       },
       {
-        src: "/videos/spec-video-2.mp4",
+        src: `${BLOB_BASE}/spec-video-2.mp4`,
         poster: "/images/spec-video-2.jpg",
         label: "Ad 2 — early cut",
       },
