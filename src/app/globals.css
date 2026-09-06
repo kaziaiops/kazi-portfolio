@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #08090c;
+  --surface: #101319;
+  --ink: #e8e6de;
+  --gold: #c9a227;
+  --rust: #b5651d;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 230, 222, 0.2) transparent;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  color: var(--ink);
+  background: var(--bg);
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* grain texture, used as a graceful fallback and a subtle global overlay */
+.grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+  background-repeat: repeat;
+}
+
+.glass {
+  background: rgba(232, 230, 222, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 230, 222, 0.09);
+}
+
+.glass-glow {
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 39, 0.1),
+    0 20px 60px -20px rgba(201, 162, 39, 0.25);
+}
+
+/* hide scrollbars on the filmstrip track while keeping it scrollable */
+.filmstrip-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.filmstrip-track::-webkit-scrollbar {
+  display: none;
+}
+
+.sprocket-row {
+  background-image: radial-gradient(
+    circle,
+    rgba(232, 230, 222, 0.16) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 18px 100%;
+  background-repeat: repeat-x;
+}
+
+/* white/silver highlight band that sweeps across a whole text block (paragraphs,
+   labels) periodically then parks off to the side — no yellow, unlike headings.
+   Uses mix-blend-mode over the existing text color instead of background-clip,
+   so it works regardless of the element's own color/opacity and needs no
+   per-word markup — safe to use on long paragraphs. */
+.sweep-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.sweep-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -30% -40%;
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 58%
+  );
+  mix-blend-mode: overlay;
+  transform: translateX(-70%);
+  animation: sweep-pass var(--sweep-dur, 8s) ease-in-out infinite;
+  animation-delay: var(--sweep-delay, 0s);
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes sweep-pass {
+  0% {
+    transform: translateX(-70%);
+  }
+  25% {
+    transform: translateX(70%);
+  }
+  100% {
+    transform: translateX(70%);
+  }
+}
+
+/* warm gold-to-copper gradient text with soft depth, used for headings —
+   keeps the projector-light motif instead of going flat white. Each word
+   gets its own copy of this so GleamText can flash them independently. */
+.gleam-word {
+  display: inline-block;
+  /* extra room below the line box so the gradient's paint area covers
+     descenders (Fraunces' "y"/"g" tails) instead of leaving them
+     unfilled/transparent past the tight line-height */
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+  background-image: linear-gradient(
+    160deg,
+    #f8efd6 0%,
+    #e7c667 26%,
+    #c9a227 52%,
+    #a06a24 76%,
+    #7a4a1a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: word-pulse var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* baseline depth shadow, brightening to a white flash mid-cycle, back to
+   baseline — one word lights up at a time as each span's --delay staggers it */
+@keyframes word-pulse {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
+      drop-shadow(0 6px 24px rgba(201, 162, 39, 0.22));
+  }
+  6% {
+    filter: brightness(2.2) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
+      drop-shadow(0 6px 24px rgba(201, 162, 39, 0.22))
+      drop-shadow(0 0 14px rgba(255, 255, 255, 0.9));
+  }
+  14% {
+    filter: brightness(1) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
+      drop-shadow(0 6px 24px rgba(201, 162, 39, 0.22));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
