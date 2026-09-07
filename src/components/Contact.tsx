@@ -3,8 +3,8 @@ import GleamText from "./GleamText";
 const links = [
   {
     label: "Email",
-    value: "kaziyousuf026@gmail.com",
-    href: "mailto:kaziyousuf026@gmail.com",
+    value: "kaziyy999@gmail.com",
+    href: "mailto:kaziyy999@gmail.com",
   },
   {
     label: "LinkedIn",
