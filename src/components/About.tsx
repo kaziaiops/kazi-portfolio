@@ -1,24 +1,5 @@
 import GleamText from "./GleamText";
 
-const education = [
-  {
-    cert: "Higher Secondary Certificate",
-    line: "National Ideal School & College — Science — Aug 2023 – Aug 2025",
-  },
-  {
-    cert: "Secondary School Certificate",
-    line: "National Ideal School & College — Science — 2021–2023",
-  },
-  {
-    cert: "Junior School Certificate",
-    line: "National Ideal School & College — 2020",
-  },
-  {
-    cert: "Primary School Certificate",
-    line: "National Ideal School & College — 2017",
-  },
-];
-
 const stack = [
   { tool: "ComfyUI (local)", use: "Wan 2.2 14B & MiniMax H3 image-to-video, self-hosted" },
   { tool: "MiniMax H3", use: "Primary generator — ~3–4 min per 5-second shot" },
@@ -27,7 +8,6 @@ const stack = [
   { tool: "Veo 3.1 / 3.1 Lite", use: "Hero shots and native in-shot dialogue" },
   { tool: "ElevenLabs", use: "Voiceover generation" },
   { tool: "CapCut / Premiere Pro", use: "Editing and final assembly" },
-  { tool: "CineFlow (self-built)", use: "Scripts voice timing → prompts → draft assembly" },
 ];
 
 export default function About() {
@@ -48,24 +28,12 @@ export default function About() {
 
           <div className="mt-10">
             <h3 className="font-display text-lg text-ink">Education</h3>
-            <ul className="mt-4 space-y-4">
-              {education.map((e, i) => (
-                <li key={e.cert} className="border-t border-ink/10 pt-3">
-                  <p
-                    className="sweep-wrap text-sm text-ink/90"
-                    style={
-                      {
-                        "--sweep-delay": `${0.3 * i}s`,
-                        "--sweep-dur": "6s",
-                      } as React.CSSProperties
-                    }
-                  >
-                    {e.cert}
-                  </p>
-                  <p className="mt-0.5 text-sm text-ink/55">{e.line}</p>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-4 border-t border-ink/10 pt-3 text-sm text-ink/90">
+              Higher Secondary Certificate
+            </p>
+            <p className="mt-0.5 text-sm text-ink/55">
+              National Ideal School & College, Dhaka — 2025
+            </p>
           </div>
         </div>
 
@@ -119,6 +87,23 @@ export default function About() {
                 </div>
               ))}
             </dl>
+          </div>
+
+          <div className="glass glass-glow mt-6 rounded-sm p-5">
+            <div className="flex flex-wrap items-center gap-3">
+              <h3 className="font-display text-lg text-ink">CineFlow</h3>
+              <span className="rounded-full border border-ink/25 px-2.5 py-1 text-xs text-ink/60">
+                Self-built, still evolving
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-ink/75">
+              I built my own tool for the repetitive parts of this pipeline —
+              it turns a script into timed voice tracks, generation prompts,
+              and a draft assembly automatically, so multi-shot projects stay
+              organized instead of managed by hand. It&apos;s a working
+              personal tool, not a finished product — I keep extending it as
+              new projects need it.
+            </p>
           </div>
         </div>
       </div>

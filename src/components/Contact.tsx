@@ -1,5 +1,12 @@
 import GleamText from "./GleamText";
 
+const services = [
+  "AI UGC / talking-head ads",
+  "Product & spec ads",
+  "Character-driven short-form video",
+  "Explainer & narrative video",
+];
+
 const links = [
   {
     label: "Email",
@@ -40,6 +47,17 @@ export default function Contact() {
           Available for freelance AI video production work. Reach out
           directly.
         </p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {services.map((service) => (
+            <span
+              key={service}
+              className="rounded-full border border-ink/15 px-3 py-1.5 text-sm text-ink/70"
+            >
+              {service}
+            </span>
+          ))}
+        </div>
 
         <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {links.map((link) => (
