@@ -15,17 +15,9 @@ Then open `http://localhost:3000`.
 
 ## Swap in real assets
 
-Real footage and posters are already in place for the three live projects.
-If you re-cut or replace any of them, keep the same filenames (or update
-the `video`/`poster` fields in `src/lib/projects.ts` and the hero's `poster`
-attribute in `src/components/Hero.tsx` if you rename them). The site always
-degrades gracefully if a video file goes missing — see
-`public/videos/README.md`.
-
-- `hero-reel.mp4` / `hero-poster.jpg`
-- `project-ceo-drama.mp4` / `project-ceo-drama.jpg`
-- `project-ugc-ads.mp4` / `project-ugc-ads.jpg`
-- `project-spec-ads.mp4` / `project-spec-ads.jpg`
+Videos are YouTube (Unlisted) embeds. To replace one, update its `youtubeId`
+in `src/lib/projects.ts` (hero: `HERO_REEL_ID`). Poster images stay in
+`public/images/` and are shown while a card preview loads.
 
 To add a new project (e.g. once the cinematic short film goes into
 production), add an entry to the `projects` array in

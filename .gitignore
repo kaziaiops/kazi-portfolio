@@ -36,8 +36,7 @@ yarn-error.log*
 next-env.d.ts
 .claude/
 
-# large video assets — exceed GitHub's 100MB limit, host separately
-# (a CDN, Vercel Blob, Cloudflare R2, etc.) and update src paths before deploy
+# local video source files — playback is served via YouTube (Unlisted) embeds
 public/videos/*.mp4
 
 .vercel

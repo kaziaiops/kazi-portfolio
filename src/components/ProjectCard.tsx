@@ -3,7 +3,7 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { Project } from "@/lib/projects";
+import { youtubeEmbedUrl, type Project } from "@/lib/projects";
 import GleamText from "./GleamText";
 
 const statusStyles: Record<Project["status"], string> = {
@@ -20,28 +20,23 @@ interface ProjectCardProps {
 const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
   ({ project, reduceMotion }, ref) => {
     const previewVideo = project.videos[0];
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [videoFailed, setVideoFailed] = useState(false);
+    const mediaRef = useRef<HTMLDivElement>(null);
+    const [inView, setInView] = useState(false);
 
-    // Cards autoplay muted while scrolled into view instead of requiring
-    // hover — a static poster alone reads as "broken image", not "video".
+    // Cards autoplay a muted YouTube preview while scrolled into view instead
+    // of requiring hover. The iframe is only mounted while visible, so
+    // off-screen cards load no players and stop playing when scrolled away.
     useEffect(() => {
-      if (reduceMotion || videoFailed || project.external || !previewVideo) return;
-      const el = videoRef.current;
+      if (reduceMotion || project.external || !previewVideo) return;
+      const el = mediaRef.current;
       if (!el) return;
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            el.play().catch(() => {});
-          } else {
-            el.pause();
-          }
-        },
+        ([entry]) => setInView(entry.isIntersecting),
         { threshold: 0.4 },
       );
       observer.observe(el);
       return () => observer.disconnect();
-    }, [reduceMotion, videoFailed, project.external, previewVideo]);
+    }, [reduceMotion, project.external, previewVideo]);
 
     const mediaClassName =
       "glass glass-glow relative block overflow-hidden border-x border-ink/10";
@@ -50,34 +45,24 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
     };
 
     const mediaContent = (
-      <>
-        {project.external || !previewVideo ? (
-          <Image
-            src={project.poster}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 88vw, 560px"
-            className="object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-          />
-        ) : !videoFailed ? (
-          <video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
-            src={previewVideo.src}
-            poster={project.poster}
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            onError={() => setVideoFailed(true)}
-          />
-        ) : (
-          <Image
-            src={project.poster}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 80vw, 560px"
-            className="object-cover"
+      <div ref={mediaRef} className="absolute inset-0">
+        <Image
+          src={project.poster}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 88vw, 560px"
+          className="object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+        />
+        {!project.external && previewVideo && inView && (
+          <iframe
+            className="pointer-events-none absolute inset-0 h-full w-full border-0 opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+            src={youtubeEmbedUrl(previewVideo.youtubeId, { background: true })}
+            title={`${project.title} preview`}
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            tabIndex={-1}
+            aria-hidden
           />
         )}
 
@@ -139,7 +124,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             )}
           </div>
         </div>
-      </>
+      </div>
     );
 
     return (

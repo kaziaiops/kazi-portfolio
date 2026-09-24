@@ -1,9 +1,29 @@
-const BLOB_BASE = "https://66hwx1e1jhv7myrl.public.blob.vercel-storage.com";
+/** Unlisted YouTube video ID for the hero background reel. */
+export const HERO_REEL_ID = "CozzKgiWBO8";
+
+interface EmbedOptions {
+  /** Muted looping background playback with no player chrome. */
+  background?: boolean;
+}
+
+export function youtubeEmbedUrl(id: string, { background }: EmbedOptions = {}) {
+  const params = new URLSearchParams({ rel: "0", modestbranding: "1", playsinline: "1" });
+  if (background) {
+    params.set("autoplay", "1");
+    params.set("mute", "1");
+    params.set("loop", "1");
+    params.set("playlist", id); // required for loop to work
+    params.set("controls", "0");
+    params.set("disablekb", "1");
+  }
+  return `https://www.youtube.com/embed/${id}?${params.toString()}`;
+}
 
 export type ProjectStatus = "Completed" | "In Production" | "Coming Soon";
 
 export interface ProjectVideo {
-  src: string;
+  /** YouTube video ID (Unlisted). */
+  youtubeId: string;
   poster: string;
   label: string;
 }
@@ -35,7 +55,7 @@ export const projects: Project[] = [
     tags: ["Veo 3.1", "Vertical 9:16", "Microdrama"],
     videos: [
       {
-        src: `${BLOB_BASE}/project-ceo-drama.mp4`,
+        youtubeId: "KcmQI7_WJEU",
         poster: "/images/project-ceo-drama.jpg",
         label: "Episode 01",
       },
@@ -54,12 +74,12 @@ export const projects: Project[] = [
     tags: ["Veo 3.1 Lite", "UGC", "2 Campaigns"],
     videos: [
       {
-        src: `${BLOB_BASE}/ugc-video-1.mp4`,
+        youtubeId: "ykwZbmb0Rwk",
         poster: "/images/ugc-video-1.jpg",
         label: "Video 1 — DTC spec ad",
       },
       {
-        src: `${BLOB_BASE}/ugc-video-2.mp4`,
+        youtubeId: "2JQv_92Pg1s",
         poster: "/images/ugc-video-2.jpg",
         label: "Video 2 — Gig intro",
       },
@@ -78,17 +98,17 @@ export const projects: Project[] = [
     tags: ["Wan 2.2 14B", "Vertical 9:16", "6-Ad Series"],
     videos: [
       {
-        src: `${BLOB_BASE}/spec-video-intro.mp4`,
+        youtubeId: "ozHmlqO0PgU",
         poster: "/images/spec-video-intro.jpg",
         label: "Intro",
       },
       {
-        src: `${BLOB_BASE}/spec-video-1.mp4`,
+        youtubeId: "HPeneKnhhfY",
         poster: "/images/spec-video-1.jpg",
         label: "Ad 1 — FlowStack",
       },
       {
-        src: `${BLOB_BASE}/spec-video-2.mp4`,
+        youtubeId: "cU6XIuJQxI8",
         poster: "/images/spec-video-2.jpg",
         label: "Ad 2 — early cut",
       },

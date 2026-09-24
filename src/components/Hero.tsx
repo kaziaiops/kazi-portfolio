@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import GleamText from "./GleamText";
+import { HERO_REEL_ID, youtubeEmbedUrl } from "@/lib/projects";
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoFailed, setVideoFailed] = useState(false);
   const reduceMotion = useReducedMotion();
 
   const container = {
@@ -47,19 +45,19 @@ export default function Hero() {
         aria-hidden
       />
 
-      {!videoFailed && (
-        <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover opacity-70"
-          src="https://66hwx1e1jhv7myrl.public.blob.vercel-storage.com/hero-reel.mp4"
-          poster="/images/hero-poster.jpg"
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={() => setVideoFailed(true)}
-          aria-hidden
-        />
+      {/* YouTube can't object-cover, so oversize a 16:9 frame to always cover the section */}
+      {!reduceMotion && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-70" aria-hidden>
+          <iframe
+            className="absolute left-1/2 top-1/2 h-[max(100%,56.25vw)] w-[max(100%,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0"
+            src={youtubeEmbedUrl(HERO_REEL_ID, { background: true })}
+            title="Showreel background"
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            tabIndex={-1}
+          />
+        </div>
       )}
 
       {/* legibility scrim */}
