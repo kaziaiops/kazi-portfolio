@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SHOWREEL } from "@/lib/projects";
+import { HERO } from "@/lib/site";
 import ShowreelDialog from "./ShowreelDialog";
 
 /**
@@ -46,10 +47,10 @@ export default function Hero() {
         <div className="relative z-10 lg:order-1">
           <p className="mb-4 text-sm text-ink-2 sm:text-base">Kazi Yousuf, Dhaka, Bangladesh</p>
           <h1 className="font-display text-display font-semibold">
-            Character-consistent AI video, built shot by shot.
+            {HERO.headline}
           </h1>
           <p className="mt-6 max-w-xl text-lead text-ink-2">
-            Voice to prompt to generated shot to final cut, one person, start to finish.
+            {HERO.subhead}
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="#contact" className="btn btn-primary">

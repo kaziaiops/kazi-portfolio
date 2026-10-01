@@ -163,6 +163,47 @@ body {
     padding: 0 1rem;
   }
 
+  /* ---------- brief form fields ---------- */
+  .field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: rgb(var(--ink-2));
+  }
+  .field-req {
+    color: rgb(var(--ink-3));
+    font-size: 0.75rem;
+  }
+  .field select,
+  .field input,
+  .field textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    border-radius: var(--r-inner);
+    border: 1px solid var(--line-strong);
+    background: rgb(var(--bg-1));
+    color: rgb(var(--ink-1));
+    font-size: 1rem; /* 16px keeps iOS from zooming on focus */
+    transition: border-color var(--dur-base);
+  }
+  .field textarea {
+    resize: vertical;
+  }
+  .field select:hover,
+  .field input:hover,
+  .field textarea:hover {
+    border-color: var(--accent-line);
+  }
+  .field [aria-invalid="true"] {
+    border-color: rgb(233 120 90);
+  }
+  .field-err {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: rgb(244 150 125);
+  }
+
   /* ---------- tags / status: one accent, three states ---------- */
   .tag {
     display: inline-flex;

@@ -1,3 +1,6 @@
+import { CONTACT } from "@/lib/site";
+import BriefForm from "./BriefForm";
+
 const services = [
   "AI UGC / talking-head ads",
   "Product & spec ads",
@@ -23,8 +26,8 @@ const icons = {
 const links = [
   {
     label: "Email",
-    value: "kaziyy999@gmail.com",
-    href: "mailto:kaziyy999@gmail.com",
+    value: CONTACT.email,
+    href: `mailto:${CONTACT.email}`,
     icon: icons.email,
   },
   {
@@ -41,8 +44,8 @@ const links = [
   },
   {
     label: "WhatsApp",
-    value: "+880 1410-216644",
-    href: "https://wa.me/8801410216644",
+    value: CONTACT.whatsappDisplay,
+    href: `https://wa.me/${CONTACT.whatsappDigits}`,
     icon: icons.whatsapp,
   },
 ];
@@ -66,7 +69,9 @@ export default function Contact() {
           ))}
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <BriefForm />
+
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((link) => (
             <a
               key={link.label}

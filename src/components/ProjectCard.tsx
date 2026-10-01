@@ -32,6 +32,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         className="absolute inset-0 bg-gradient-to-t from-bg/60 via-transparent to-transparent"
         aria-hidden
       />
+      {project.posterTitle && (
+        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8" aria-hidden>
+          <p className="text-xs uppercase tracking-[0.18em] text-accent">
+            {project.posterTitle.kicker}
+          </p>
+          <p className="mt-2 font-display text-h1 font-semibold leading-none text-ink">
+            {project.posterTitle.title}
+          </p>
+        </div>
+      )}
       {hasPage && (
         <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
           <div className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/60 bg-bg/50 backdrop-blur-sm transition-transform duration-300 ease-out group-hover:scale-110">
@@ -57,7 +67,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {hasPage ? (
           <Link
             href={`/work/${project.slug}`}
-            aria-label={`${project.title}: open project`}
+            aria-label={`${project.status}: ${project.title}, open project`}
             className="block"
           >
             {media}

@@ -1,4 +1,4 @@
-# Kazi Yousuf — Portfolio
+# Kazi Yousuf | Portfolio
 
 Personal portfolio for Kazi Yousuf, an AI video creator in Dhaka, Bangladesh.
 Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion, and

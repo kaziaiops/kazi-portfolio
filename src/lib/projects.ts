@@ -48,6 +48,8 @@ export interface Project {
   videos: ProjectVideo[];
   poster: string;
   aspect: "portrait" | "landscape";
+  /** Typographic title card drawn over a poster that has no real still frame yet. */
+  posterTitle?: { kicker: string; title: string };
 }
 
 export const projects: Project[] = [
@@ -135,5 +137,6 @@ export const projects: Project[] = [
     videos: [],
     poster: "/images/blindside-effect.svg",
     aspect: "landscape",
+    posterTitle: { kicker: "Weekly psychology explainer", title: "Blindside Effect" },
   },
 ];

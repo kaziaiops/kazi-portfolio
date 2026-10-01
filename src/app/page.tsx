@@ -4,6 +4,8 @@ import FilmstripGallery from "@/components/FilmstripGallery";
 import About from "@/components/About";
 import Pipeline from "@/components/Pipeline";
 import MotionLoader from "@/components/motion/MotionLoader";
+import HowIWork from "@/components/HowIWork";
+import Faq from "@/components/Faq";
 import Resume from "@/components/Resume";
 import Contact from "@/components/Contact";
 
@@ -16,6 +18,8 @@ export default function Home() {
         <FilmstripGallery />
         <About />
         <Pipeline />
+        <HowIWork />
+        <Faq />
         <Resume />
         <Contact />
       </main>

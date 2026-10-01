@@ -1,4 +1,4 @@
-import { SITE_URL, SOCIAL_LINKS } from "@/lib/site";
+import { CONTACT, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site";
 
 const person = {
   "@context": "https://schema.org",
@@ -9,7 +9,7 @@ const person = {
   jobTitle: "AI Video Creator",
   description:
     "AI video creator in Dhaka, Bangladesh producing character-consistent video (script, voice, generated shots and final cut) solo.",
-  email: "mailto:kaziyy999@gmail.com",
+  email: `mailto:${CONTACT.email}`,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Dhaka",
@@ -28,13 +28,25 @@ const person = {
   sameAs: [SOCIAL_LINKS.linkedin, SOCIAL_LINKS.github],
 };
 
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  inLanguage: "en",
+  publisher: { "@id": `${SITE_URL}/#person` },
+};
+
+const json = (data: object) => JSON.stringify(data).replace(/</g, "\u003c");
+
+/** Person + WebSite. No VideoObject: the videos are unlisted, so it would earn nothing. */
 export default function PersonJsonLd() {
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(person).replace(/</g, "\u003c"),
-      }}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json(person) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json(website) }} />
+    </>
   );
 }
