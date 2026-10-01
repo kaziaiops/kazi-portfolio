@@ -10,9 +10,9 @@ export default function Pipeline() {
     <section id="pipeline" className="pipeline relative px-6 py-section sm:px-10 lg:px-16">
       <div className="pipeline-pin mx-auto max-w-container">
         <div data-reveal>
-          <h2 className="font-display text-h1 font-semibold">Pipeline</h2>
+          <h2 className="font-display text-h1 font-semibold">How a project runs</h2>
           <p className="mt-4 max-w-md text-ink-2">
-            How a project moves from script to final cut, one stage at a time.
+            From your brief to the final cut, one stage at a time, all by one person.
           </p>
         </div>
 

@@ -52,7 +52,10 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative px-6 py-section sm:px-10 lg:px-16">
+    <section
+      id="contact"
+      className="cv-auto relative px-6 py-section [--cv-h:2118px] sm:px-10 sm:[--cv-h:1410px] lg:px-16 lg:[--cv-h:1222px]"
+    >
       <div className="mx-auto max-w-container">
         <div data-reveal>
           <h2 className="font-display text-h1 font-semibold">Start a project</h2>

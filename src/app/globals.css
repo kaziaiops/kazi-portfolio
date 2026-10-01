@@ -285,6 +285,13 @@ body {
   }
 }
 
+/* below-the-fold sections after the pinned pipeline skip rendering until near the viewport.
+   --cv-h is the measured content-box height (section height minus padding) per breakpoint; "auto" then remembers the real one. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--cv-h, 800px);
+}
+
 /* ---------- pipeline: static list by default, pinned scroll story when JS upgrades it ---------- */
 .pipeline-rail {
   display: none;

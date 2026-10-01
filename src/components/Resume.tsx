@@ -2,7 +2,10 @@ const RESUME_PDF = "/resume/Kazi-Yousuf-Resume.pdf";
 
 export default function Resume() {
   return (
-    <section id="resume" className="relative px-6 py-20 sm:px-10 lg:px-16">
+    <section
+      id="resume"
+      className="cv-auto relative px-6 py-20 [--cv-h:220px] sm:px-10 sm:[--cv-h:140px] lg:px-16 lg:[--cv-h:149px]"
+    >
       <div data-reveal className="glass mx-auto flex max-w-container flex-col items-start justify-between gap-6 rounded-surface p-8 sm:flex-row sm:items-center sm:p-10">
         <div>
           <h2 className="font-display text-h2 font-semibold">Want the short version?</h2>

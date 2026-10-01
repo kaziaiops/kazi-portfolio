@@ -61,7 +61,10 @@ const faqs: { q: string; a: React.ReactNode }[] = [
 
 export default function Faq() {
   return (
-    <section id="faq" className="relative px-6 py-section sm:px-10 lg:px-16">
+    <section
+      id="faq"
+      className="cv-auto relative px-6 py-section [--cv-h:1746px] sm:px-10 sm:[--cv-h:1014px] lg:px-16 lg:[--cv-h:718px]"
+    >
       <div className="mx-auto max-w-container">
         <div data-reveal>
           <h2 className="font-display text-h1 font-semibold">Questions</h2>
