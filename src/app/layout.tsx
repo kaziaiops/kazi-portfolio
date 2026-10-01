@@ -1,20 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import SpeedInsightsGate from "@/components/SpeedInsightsGate";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import PersonJsonLd from "@/components/PersonJsonLd";
 import "./globals.css";
 
-const fraunces = Fraunces({
+// Display font (Bricolage Grotesque 600, latin) is self-hosted in public/fonts and preloaded
+// below, because it paints the LCP headline. @font-face lives in globals.css.
+const body = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  weight: ["400", "500"],
-  style: ["normal"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  display: "swap",
+  preload: false, // body text is not LCP; keep bandwidth for the display font
+  variable: "--font-body",
 });
 
 export const metadata: Metadata = {
@@ -38,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08090C",
+  themeColor: "#07080B",
   width: "device-width",
   initialScale: 1,
 };
@@ -49,7 +46,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={body.variable}>
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/bricolage-grotesque-600-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="bg-bg text-ink font-sans antialiased">
         {children}
         <PersonJsonLd />

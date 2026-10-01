@@ -3,14 +3,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import VideoFacade from "@/components/VideoFacade";
-import GleamText from "@/components/GleamText";
 import { SITE_NAME } from "@/lib/site";
 import { projects, type ProjectStatus } from "@/lib/projects";
 
-const statusStyles: Record<ProjectStatus, string> = {
-  Completed: "border-gold/40 text-gold",
-  "In Production": "border-rust/50 text-rust",
-  "Coming Soon": "border-ink/25 text-ink/60",
+const statusClass: Record<ProjectStatus, string> = {
+  Completed: "tag-done",
+  "In Production": "tag-prod",
+  "Coming Soon": "tag-soon",
 };
 
 export function generateStaticParams() {
@@ -42,53 +41,48 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <>
       <Nav />
-      <main className="mx-auto max-w-4xl px-6 pb-28 pt-32 sm:px-10 sm:pt-40 lg:px-16">
-        <Link
-          href="/#work"
-          className="text-sm text-ink/60 transition-colors hover:text-gold"
-        >
+      <main className="mx-auto max-w-5xl px-6 pb-28 pt-32 sm:px-10 sm:pt-40 lg:px-16">
+        <Link href="/#work" className="text-sm text-ink-3 transition-colors hover:text-accent">
           Back to Selected work
         </Link>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <h1 className="font-display text-3xl sm:text-4xl">
-            <GleamText text={project.title} />
-          </h1>
-          <span
-            className={`rounded-full border px-2.5 py-1 text-xs ${statusStyles[project.status]}`}
-          >
-            {project.status}
-          </span>
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          <h1 className="font-display text-h1 font-semibold">{project.title}</h1>
+          <span className={`tag ${statusClass[project.status]}`}>{project.status}</span>
         </div>
 
-        <p className="mt-4 max-w-2xl text-ink/75">{project.description}</p>
-        <p className="mt-3 max-w-2xl text-sm text-ink/55">{project.detail}</p>
+        <p className="mt-5 max-w-2xl text-lead text-ink-2">{project.description}</p>
+        <p className="mt-3 max-w-2xl text-sm text-ink-3">{project.detail}</p>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-ink/15 px-2.5 py-1 text-xs text-ink/70"
-            >
+            <span key={tag} className="tag">
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="mt-12 grid gap-10 sm:grid-cols-2">
+        <div className="mt-14 grid gap-10 sm:grid-cols-2">
           {project.videos.map((v) => (
             <div key={v.youtubeId}>
-              <p className="mb-3 text-sm text-ink/60">{v.label}</p>
+              <p className="mb-3 text-sm text-ink-2">{v.label}</p>
               <VideoFacade
                 youtubeId={v.youtubeId}
-                title={`${project.title} — ${v.label}`}
+                title={`${project.title}: ${v.label}`}
                 poster={v.poster}
                 aspect={project.aspect}
                 sizes="(max-width: 640px) 92vw, 440px"
-                className="w-full rounded-sm"
+                className="w-full"
               />
             </div>
           ))}
+        </div>
+
+        <div className="mt-20 flex flex-col items-start gap-4 border-t border-white/10 pt-10 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-display text-h2 font-semibold">Have a project like this in mind?</p>
+          <Link href="/#contact" className="btn btn-primary">
+            Start a project
+          </Link>
         </div>
       </main>
     </>

@@ -2,57 +2,246 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Design tokens. One dark theme, one accent (tungsten amber).
+ * Colors are stored as rgb channels so Tailwind opacity modifiers work
+ * (e.g. text-ink/70). The same values feed tailwind.config.ts.
+ */
+/* Display font: Bricolage Grotesque 600, latin subset, self-hosted and preloaded (LCP headline). */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-600-latin.woff2") format("woff2");
+  unicode-range: U+00??, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* metric-matched fallback so the swap does not shift layout */
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial");
+  ascent-override: 88.21%;
+  descent-override: 25.61%;
+  line-gap-override: 0%;
+  size-adjust: 105.43%;
+}
+
 :root {
-  --bg: #08090c;
-  --surface: #101319;
-  --ink: #e8e6de;
-  --gold: #c9a227;
-  --rust: #b5651d;
+  --font-display: "Bricolage Grotesque", "Bricolage Fallback", ui-sans-serif, system-ui, sans-serif;
+  --bg-0: 7 8 11;
+  --bg-1: 12 14 19;
+  --bg-2: 18 21 28;
+  --bg-3: 26 30 40;
+  --ink-1: 236 233 226;
+  --ink-2: 185 182 174;
+  --ink-3: 143 141 135;
+  --accent: 233 169 75;
+  --accent-hover: 242 188 107;
+  --accent-ink: 26 18 5;
+
+  --line: rgb(236 233 226 / 0.09);
+  --line-strong: rgb(236 233 226 / 0.18);
+  --accent-tint: rgb(233 169 75 / 0.12);
+  --accent-line: rgb(233 169 75 / 0.4);
+
+  /* radius: pills for anything interactive, 20px surfaces, 10px inner media */
+  --r-pill: 999px;
+  --r-surface: 20px;
+  --r-inner: 10px;
+
+  /* glass + depth (shadows tinted to the background hue) */
+  --glass-bg: rgb(236 233 226 / 0.045);
+  --glass-blur: blur(18px) saturate(140%);
+  --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  --shadow-1: 0 8px 24px -12px rgb(2 4 10 / 0.7);
+  --shadow-2: 0 2px 6px rgb(2 4 10 / 0.5), 0 24px 48px -24px rgb(2 4 10 / 0.85);
+  --shadow-3: 0 2px 6px rgb(2 4 10 / 0.5), 0 40px 80px -30px rgb(2 4 10 / 0.9),
+    0 30px 90px -40px rgb(233 169 75 / 0.18);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 700ms;
+
+  color-scheme: dark;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(232, 230, 222, 0.2) transparent;
+  scrollbar-color: rgb(var(--ink-1) / 0.2) transparent;
 }
 
 html {
-  background: var(--bg);
+  background: rgb(var(--bg-0));
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--ink);
-  background: var(--bg);
+  color: rgb(var(--ink-1));
+  background: rgb(var(--bg-0));
 }
 
 ::selection {
-  background: var(--gold);
-  color: var(--bg);
+  background: rgb(var(--accent));
+  color: rgb(var(--accent-ink));
 }
 
 /* visible keyboard focus everywhere */
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
-/* grain texture, used as a graceful fallback and a subtle global overlay */
-.grain {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
-  background-repeat: repeat;
-}
+@layer components {
+  /* ---------- glass + surfaces ---------- */
+  .glass {
+    position: relative;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--line);
+    box-shadow: var(--glass-edge), var(--shadow-2);
+  }
+  /* soft corner light on glass panels */
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 80% at 0% 0%, rgb(255 255 255 / 0.07), transparent 45%);
+  }
 
-.glass {
-  background: rgba(232, 230, 222, 0.04);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(232, 230, 222, 0.09);
-}
+  /* ---------- buttons: pill, 48px, one label per intent ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 48px;
+    padding: 0 1.5rem;
+    border-radius: var(--r-pill);
+    border: 1px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      background-color var(--dur-base),
+      border-color var(--dur-base),
+      color var(--dur-base);
+  }
+  .btn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  .btn-primary {
+    background: rgb(var(--accent));
+    color: rgb(var(--accent-ink));
+  }
+  .btn-primary:hover {
+    background: rgb(var(--accent-hover));
+  }
+  .btn-secondary {
+    background: var(--glass-bg);
+    color: rgb(var(--ink-1));
+    border-color: var(--line-strong);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-edge);
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent-line);
+    color: rgb(var(--accent));
+  }
+  .btn-sm {
+    height: 36px;
+    padding: 0 1rem;
+  }
 
-.glass-glow {
-  box-shadow:
-    0 0 0 1px rgba(201, 162, 39, 0.1),
-    0 20px 60px -20px rgba(201, 162, 39, 0.25);
+  /* ---------- tags / status: one accent, three states ---------- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 0.75rem;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line-strong);
+    color: rgb(var(--ink-2));
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+  .tag-done {
+    background: var(--accent-tint);
+    border-color: var(--accent-line);
+    color: rgb(var(--accent));
+  }
+  .tag-prod {
+    color: rgb(var(--ink-1));
+  }
+  .tag-soon {
+    color: rgb(var(--ink-3));
+    border-style: dashed;
+  }
+
+  /* ---------- film-stack card: two ghost frames behind the poster ---------- */
+  .film-card {
+    position: relative;
+  }
+  .film-card::before,
+  .film-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: var(--r-surface);
+    border: 1px solid var(--line);
+    background: rgb(var(--bg-2));
+    pointer-events: none;
+  }
+  .film-card::before {
+    transform: translate(10px, 10px) scale(0.97);
+    opacity: 0.7;
+  }
+  .film-card::after {
+    transform: translate(20px, 20px) scale(0.94);
+    opacity: 0.4;
+    z-index: -1;
+  }
+  .film-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* the one reveal: a single warm light pass, plays once, never hides content */
+  .light-pass {
+    position: relative;
+    overflow: hidden;
+  }
+  .light-pass::after {
+    content: "";
+    position: absolute;
+    inset: -20% -30%;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      transparent 40%,
+      rgb(233 169 75 / 0.22) 50%,
+      transparent 60%
+    );
+    transform: translateX(-70%);
+    mix-blend-mode: screen;
+    animation: light-pass 1.4s var(--ease-out) 0.4s 1 forwards;
+  }
+  @keyframes light-pass {
+    to {
+      transform: translateX(70%);
+    }
+  }
 }
 
 /* hide scrollbars on the filmstrip track while keeping it scrollable */
@@ -64,98 +253,6 @@ body {
   display: none;
 }
 
-.sprocket-row {
-  background-image: radial-gradient(
-    circle,
-    rgba(232, 230, 222, 0.16) 1.5px,
-    transparent 1.5px
-  );
-  background-size: 18px 100%;
-  background-repeat: repeat-x;
-}
-
-/* white/silver highlight band that sweeps across a whole text block (paragraphs,
-   labels) periodically then parks off to the side — no yellow, unlike headings.
-   Uses mix-blend-mode over the existing text color instead of background-clip,
-   so it works regardless of the element's own color/opacity and needs no
-   per-word markup — safe to use on long paragraphs. */
-.sweep-wrap {
-  position: relative;
-  overflow: hidden;
-}
-.sweep-wrap::after {
-  content: "";
-  position: absolute;
-  inset: -30% -40%;
-  background: linear-gradient(
-    100deg,
-    transparent 42%,
-    rgba(255, 255, 255, 0.45) 50%,
-    transparent 58%
-  );
-  mix-blend-mode: overlay;
-  transform: translateX(-70%);
-  animation: sweep-pass var(--sweep-dur, 8s) ease-in-out infinite;
-  animation-delay: var(--sweep-delay, 0s);
-  pointer-events: none;
-  will-change: transform;
-}
-
-@keyframes sweep-pass {
-  0% {
-    transform: translateX(-70%);
-  }
-  25% {
-    transform: translateX(70%);
-  }
-  100% {
-    transform: translateX(70%);
-  }
-}
-
-/* warm gold-to-copper gradient text with soft depth, used for headings —
-   keeps the projector-light motif instead of going flat white. Each word
-   gets its own copy of this so GleamText can flash them independently. */
-.gleam-word {
-  display: inline-block;
-  /* extra room below the line box so the gradient's paint area covers
-     descenders (Fraunces' "y"/"g" tails) instead of leaving them
-     unfilled/transparent past the tight line-height */
-  padding-bottom: 0.22em;
-  margin-bottom: -0.22em;
-  background-image: linear-gradient(
-    160deg,
-    #f8efd6 0%,
-    #e7c667 26%,
-    #c9a227 52%,
-    #a06a24 76%,
-    #7a4a1a 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: word-pulse var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
-}
-
-/* baseline depth shadow, brightening to a white flash mid-cycle, back to
-   baseline — one word lights up at a time as each span's --delay staggers it */
-@keyframes word-pulse {
-  0%,
-  100% {
-    filter: brightness(1) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
-      drop-shadow(0 6px 24px rgba(201, 162, 39, 0.22));
-  }
-  6% {
-    filter: brightness(2.2) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
-      drop-shadow(0 6px 24px rgba(201, 162, 39, 0.22))
-      drop-shadow(0 0 14px rgba(255, 255, 255, 0.9));
-  }
-  14% {
-    filter: brightness(1) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5))
-      drop-shadow(0 6px 24px rgba(201, 162, 39, 0.22));
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -164,5 +261,17 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  .light-pass::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .btn-secondary {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgb(var(--bg-2));
   }
 }

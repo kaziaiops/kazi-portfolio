@@ -11,7 +11,7 @@ interface VideoFacadeProps {
   poster: string;
   aspect: "portrait" | "landscape";
   sizes: string;
-  /** Mount the player immediately — for use right after a user click (e.g. a modal). */
+  /** Mount the player immediately, for use right after a user click (e.g. a modal). */
   autoLoad?: boolean;
   priority?: boolean;
   className?: string;
@@ -42,7 +42,7 @@ export default function VideoFacade({
 
   return (
     <div
-      className={`glass glass-glow relative overflow-hidden bg-surface ${className}`}
+      className={`relative overflow-hidden rounded-surface border border-white/10 bg-bg-2 shadow-depth-3 ${className}`}
       style={boxStyle}
     >
       {active ? (
@@ -58,11 +58,11 @@ export default function VideoFacade({
           type="button"
           onClick={() => setActive(true)}
           aria-label={`Play video: ${title}`}
-          className="group absolute inset-0 block h-full w-full cursor-pointer"
+          className="group absolute inset-0 block h-full w-full cursor-pointer focus-visible:outline-offset-[-3px]"
         >
           <Image
             src={thumbs[thumbIndex] ?? thumbs[thumbs.length - 1]}
-            alt={`${title} — video thumbnail`}
+            alt={`${title} - video thumbnail`}
             fill
             sizes={sizes}
             priority={priority}
@@ -70,12 +70,12 @@ export default function VideoFacade({
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
           <span
-            className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-bg/20"
+            className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-bg/10"
             aria-hidden
           />
           <span className="absolute inset-0 flex items-center justify-center" aria-hidden>
-            <span className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-gold/70 bg-bg/50 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110 group-hover:border-gold">
-              <span className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-gold" />
+            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-accent/60 bg-bg/50 backdrop-blur-sm transition-transform duration-300 ease-out group-hover:scale-110 group-hover:border-accent">
+              <span className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-accent" />
             </span>
           </span>
         </button>

@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+const channel = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,37 +11,52 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#08090C",
-        surface: "#101319",
-        ink: "#E8E6DE",
-        gold: "#C9A227",
-        rust: "#B5651D",
+        bg: {
+          DEFAULT: channel("bg-0"),
+          1: channel("bg-1"),
+          2: channel("bg-2"),
+          3: channel("bg-3"),
+        },
+        ink: {
+          DEFAULT: channel("ink-1"),
+          2: channel("ink-2"),
+          3: channel("ink-3"),
+        },
+        accent: {
+          DEFAULT: channel("accent"),
+          hover: channel("accent-hover"),
+          ink: channel("accent-ink"),
+        },
       },
       fontFamily: {
-        display: ["var(--font-fraunces)", "Georgia", "serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       fontSize: {
-        xs: ["0.75rem", { lineHeight: "1.5" }],
-        sm: ["0.875rem", { lineHeight: "1.6" }],
-        base: ["1rem", { lineHeight: "1.7" }],
-        lg: ["1.125rem", { lineHeight: "1.7" }],
-        xl: ["1.4rem", { lineHeight: "1.5" }],
-        "2xl": ["1.75rem", { lineHeight: "1.35" }],
-        "3xl": ["2.2rem", { lineHeight: "1.2" }],
-        "4xl": ["2.75rem", { lineHeight: "1.12" }],
-        "5xl": ["3.5rem", { lineHeight: "1.08" }],
-        "6xl": ["clamp(3rem, 7vw, 5.5rem)", { lineHeight: "1.02" }],
-        "7xl": ["clamp(3.5rem, 9vw, 7rem)", { lineHeight: "1" }],
+        display: ["clamp(2.5rem, 5.2vw, 4.5rem)", { lineHeight: "1.02", letterSpacing: "-0.035em" }],
+        h1: ["clamp(2rem, 3.6vw, 3rem)", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
+        h2: ["clamp(1.5rem, 2.4vw, 2rem)", { lineHeight: "1.1", letterSpacing: "-0.03em" }],
+        h3: ["1.25rem", { lineHeight: "1.2", letterSpacing: "-0.02em" }],
+        lead: ["clamp(1.0625rem, 1.4vw, 1.25rem)", { lineHeight: "1.55" }],
       },
-      backdropBlur: {
-        xs: "2px",
+      borderRadius: {
+        pill: "999px",
+        surface: "20px",
+        inner: "10px",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(201,162,39,0.12), 0 8px 40px -12px rgba(201,162,39,0.25)",
+        "depth-1": "var(--shadow-1)",
+        "depth-2": "var(--shadow-2)",
+        "depth-3": "var(--shadow-3)",
+      },
+      maxWidth: {
+        container: "1240px",
+      },
+      spacing: {
+        section: "clamp(5rem, 10vw, 9rem)",
       },
       transitionTimingFunction: {
-        reel: "cubic-bezier(0.16, 1, 0.3, 1)",
+        out: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

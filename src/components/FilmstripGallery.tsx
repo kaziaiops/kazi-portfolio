@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { projects } from "@/lib/projects";
 import ProjectCard from "./ProjectCard";
-import GleamText from "./GleamText";
 
 export default function FilmstripGallery() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -33,8 +32,11 @@ export default function FilmstripGallery() {
         const rotateY = ratio * -14;
         const scale = 1 - Math.abs(ratio) * 0.09;
         const opacity = 1 - Math.abs(ratio) * 0.35;
-        card.style.transform = `perspective(1200px) rotateY(${rotateY}deg) scale(${scale})`;
-        card.style.opacity = `${Math.max(0.55, opacity)}`;
+        // tilt only the poster stack, so the card text stays flat and readable
+        const media = card.querySelector<HTMLElement>(".film-card");
+        if (!media) return;
+        media.style.transform = `perspective(1200px) rotateY(${rotateY}deg) scale(${scale})`;
+        media.style.opacity = `${Math.max(0.55, opacity)}`;
       });
     };
 
@@ -60,24 +62,19 @@ export default function FilmstripGallery() {
   };
 
   return (
-    <section id="work" className="relative py-28 sm:py-36">
-      <div className="mb-12 px-6 sm:px-10 lg:px-16">
-        <h2 className="font-display text-3xl sm:text-4xl">
-          <GleamText text="Selected work" />
-        </h2>
-        <p
-          className="sweep-wrap mt-3 max-w-xl text-ink/65"
-          style={{ "--sweep-delay": "1.4s" } as React.CSSProperties}
-        >
-          Four projects, two disciplines — AI-generated video work and a
-          weekly explainer series, both written, produced, and edited solo.
+    <section id="work" className="relative py-section">
+      <div className="mx-auto mb-12 max-w-container px-6 sm:px-10 lg:px-16">
+        <h2 className="font-display text-h1 font-semibold">Selected work</h2>
+        <p className="mt-4 max-w-xl text-ink-2">
+          Four projects across AI-generated video and a weekly explainer series, all written,
+          produced and edited solo.
         </p>
       </div>
 
       <div
         ref={trackRef}
         onWheel={onWheel}
-        className="filmstrip-track flex gap-6 overflow-x-auto scroll-smooth px-6 pb-6 snap-x snap-proximity sm:px-10 lg:px-16"
+        className="filmstrip-track flex snap-x snap-proximity gap-10 overflow-x-auto scroll-smooth px-6 pb-16 pt-4 sm:px-10 lg:px-16"
         style={{ scrollPaddingLeft: "1.5rem" }}
       >
         {projects.map((project, i) => (

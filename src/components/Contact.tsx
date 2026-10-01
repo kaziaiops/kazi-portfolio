@@ -1,5 +1,3 @@
-import GleamText from "./GleamText";
-
 const services = [
   "AI UGC / talking-head ads",
   "Product & spec ads",
@@ -51,50 +49,30 @@ const links = [
 
 export default function Contact() {
   return (
-    <section
-      id="contact"
-      className="relative px-6 py-28 sm:px-10 sm:py-36 lg:px-16"
-    >
-      <div className="mx-auto max-w-5xl">
-        <h2 className="font-display text-3xl sm:text-4xl">
-          <GleamText text="Start a project" />
-        </h2>
-        <p
-          className="sweep-wrap mt-3 max-w-md text-ink/65"
-          style={{ "--sweep-delay": "0.5s" } as React.CSSProperties}
-        >
-          Available for freelance AI video production work. Reach out
-          directly.
+    <section id="contact" className="relative px-6 py-section sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-container">
+        <h2 className="font-display text-h1 font-semibold">Start a project</h2>
+        <p className="mt-4 max-w-md text-ink-2">
+          Available for freelance AI video production work. Reach out directly.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-2">
           {services.map((service) => (
-            <span
-              key={service}
-              className="rounded-full border border-ink/15 px-3 py-1.5 text-sm text-ink/70"
-            >
+            <span key={service} className="tag h-9 px-4 text-sm">
               {service}
             </span>
           ))}
         </div>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((link) => (
             <a
               key={link.label}
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="glass group relative overflow-hidden rounded-lg p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-glow"
+              className="glass group rounded-surface p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 hover:shadow-depth-3"
             >
-              <div
-                className="absolute inset-0 -z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{
-                  background:
-                    "radial-gradient(120px 120px at 20% 0%, rgba(201,162,39,0.15), transparent 70%)",
-                }}
-                aria-hidden
-              />
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -102,21 +80,21 @@ export default function Contact() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-8 w-8 rounded-full border border-ink/15 p-1.5 text-ink/60 transition-colors group-hover:border-gold/50 group-hover:text-gold"
+                className="h-9 w-9 rounded-full border border-white/15 p-2 text-ink-2 transition-colors group-hover:border-accent/50 group-hover:text-accent"
                 aria-hidden
               >
                 {link.icon}
               </svg>
-              <span className="mt-4 block text-sm text-ink/65">{link.label}</span>
-              <p className="mt-1 break-words text-ink group-hover:text-gold transition-colors">
+              <span className="mt-5 block text-sm text-ink-3">{link.label}</span>
+              <p className="mt-1 break-words text-ink transition-colors group-hover:text-accent">
                 {link.value}
               </p>
             </a>
           ))}
         </div>
 
-        <p className="mt-16 text-sm text-ink/60">
-          © {new Date().getFullYear()} Kazi Yousuf, Dhaka, Bangladesh.
+        <p className="mt-16 text-sm text-ink-3">
+          &copy; {new Date().getFullYear()} Kazi Yousuf, Dhaka, Bangladesh.
         </p>
       </div>
     </section>

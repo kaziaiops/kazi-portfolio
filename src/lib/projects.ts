@@ -56,9 +56,9 @@ export const projects: Project[] = [
     title: "The CEO's Forbidden Assistant",
     status: "In Production",
     description:
-      "A two-character vertical microdrama — Lena and Damien, one Executive Office, one night.",
+      "A two-character vertical microdrama - Lena and Damien, one Executive Office, one night.",
     detail:
-      "Episode 01: nine shots, ~62 seconds of raw footage, cut toward a 60–70 second final that ends on a cliffhanger. Hero references locked in Nano Banana Pro, each shot generated in Veo 3.1 with dialogue voiced natively in-shot. Currently in edit.",
+      "Episode 01: nine shots, ~62 seconds of raw footage, cut toward a 60-70 second final that ends on a cliffhanger. Hero references locked in Nano Banana Pro, each shot generated in Veo 3.1 with dialogue voiced natively in-shot. Currently in edit.",
     tags: ["Veo 3.1", "Vertical 9:16", "Microdrama"],
     videos: [
       {
@@ -83,12 +83,12 @@ export const projects: Project[] = [
       {
         youtubeId: "ykwZbmb0Rwk",
         poster: "/images/ugc-video-1.jpg",
-        label: "Video 1 — DTC spec ad",
+        label: "Video 1 - DTC spec ad",
       },
       {
         youtubeId: "2JQv_92Pg1s",
         poster: "/images/ugc-video-2.jpg",
-        label: "Video 2 — Gig intro",
+        label: "Video 2 - Gig intro",
       },
     ],
     poster: "/images/project-ugc-ads.jpg",
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     description:
       "One locked 2D-illustrated character running across six spec ads, three SaaS and three DTC.",
     detail:
-      "FlowStack, PitchBird, and LedgerLoop for SaaS; SLUMBR, LUMENA, and FetchBox for DTC. Five shots per ad, generated with the Wan 2.2 14B image-to-video pipeline, vertical 9:16. Ads one and two have shots and stills generated, with animation underway — four more to go.",
+      "FlowStack, PitchBird, and LedgerLoop for SaaS; SLUMBR, LUMENA, and FetchBox for DTC. Five shots per ad, generated with the Wan 2.2 14B image-to-video pipeline, vertical 9:16. Ads one and two have shots and stills generated, with animation underway - four more to go.",
     tags: ["Wan 2.2 14B", "Vertical 9:16", "6-Ad Series"],
     videos: [
       {
@@ -112,12 +112,12 @@ export const projects: Project[] = [
       {
         youtubeId: "HPeneKnhhfY",
         poster: "/images/spec-video-1.jpg",
-        label: "Ad 1 — FlowStack",
+        label: "Ad 1 - FlowStack",
       },
       {
         youtubeId: "cU6XIuJQxI8",
         poster: "/images/spec-video-2.jpg",
-        label: "Ad 2 — early cut",
+        label: "Ad 2 - early cut",
       },
     ],
     poster: "/images/spec-video-intro.jpg",
@@ -128,9 +128,9 @@ export const projects: Project[] = [
     title: "Blindside Effect",
     status: "In Production",
     description:
-      "A weekly psychology and cognitive-bias explainer channel — written, voiced, and edited solo.",
+      "A weekly psychology and cognitive-bias explainer channel - written, voiced, and edited solo.",
     detail:
-      "Five episodes covering biases and behavioral effects — Dunning-Kruger, the Halo Effect, Murphy's Law, and more. Separate from the AI-generated character work above: scripted, recorded, and cut by hand, released on a weekly cadence.",
+      "Five episodes covering biases and behavioral effects - Dunning-Kruger, the Halo Effect, Murphy's Law, and more. Separate from the AI-generated character work above: scripted, recorded, and cut by hand, released on a weekly cadence.",
     tags: ["YouTube", "Explainer Series", "5 Episodes"],
     videos: [],
     poster: "/images/blindside-effect.svg",

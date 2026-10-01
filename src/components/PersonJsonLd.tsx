@@ -8,7 +8,7 @@ const person = {
   url: SITE_URL,
   jobTitle: "AI Video Creator",
   description:
-    "AI video creator in Dhaka, Bangladesh producing character-consistent video — script, voice, generated shots and final cut — solo.",
+    "AI video creator in Dhaka, Bangladesh producing character-consistent video (script, voice, generated shots and final cut) solo.",
   email: "mailto:kaziyy999@gmail.com",
   address: {
     "@type": "PostalAddress",
