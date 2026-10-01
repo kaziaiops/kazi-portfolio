@@ -244,6 +244,47 @@ body {
   }
 }
 
+/* ---------- pipeline: static list by default, pinned scroll story when JS upgrades it ---------- */
+.pipeline-rail {
+  display: none;
+}
+.pipeline[data-mode="pinned"] .pipeline-pin {
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 6rem 2rem;
+}
+.pipeline[data-mode="pinned"] .pipeline-rail {
+  display: block;
+  margin-top: 2.5rem;
+}
+.pipeline[data-mode="pinned"] .pipeline-rail ul {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: rgb(var(--ink-2));
+}
+.pipeline-rail-line {
+  height: 2px;
+  background: var(--line-strong);
+}
+.pipeline-rail-fill {
+  height: 100%;
+  background: rgb(var(--accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.pipeline[data-mode="pinned"] .pipeline-list {
+  display: grid;
+  margin-top: 2rem;
+}
+.pipeline[data-mode="pinned"] .pipeline-stage {
+  grid-area: 1 / 1;
+  margin: 0;
+}
+
 /* hide scrollbars on the filmstrip track while keeping it scrollable */
 .filmstrip-track {
   scrollbar-width: none;

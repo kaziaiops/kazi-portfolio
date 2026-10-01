@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
@@ -14,7 +13,7 @@ interface ProjectCardProps {
 }
 
 /** Poster-only card (no player): the video lives behind VideoFacade on the project page. */
-const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(({ project }, ref) => {
+export default function ProjectCard({ project }: ProjectCardProps) {
   const hasPage = project.videos.length > 0;
 
   const media = (
@@ -48,7 +47,6 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(({ project }, r
 
   return (
     <div
-      ref={ref}
       data-card
       className="group shrink-0 snap-center"
       style={{
@@ -87,7 +85,4 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(({ project }, r
       </div>
     </div>
   );
-});
-
-ProjectCard.displayName = "ProjectCard";
-export default ProjectCard;
+}

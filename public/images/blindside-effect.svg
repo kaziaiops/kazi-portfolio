@@ -13,6 +13,4 @@
   <rect width="1920" height="1080" fill="url(#g)"/>
   <rect width="1920" height="1080" filter="url(#grain)" opacity="0.05"/>
 
-  <circle cx="960" cy="500" r="100" fill="none" stroke="#C9A227" stroke-width="2" opacity="0.55"/>
-  <path d="M925 448 L1005 500 L925 552 Z" fill="#C9A227" opacity="0.9"/>
 </svg>

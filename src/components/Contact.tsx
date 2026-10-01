@@ -5,18 +5,18 @@ const services = [
   "Explainer & narrative video",
 ];
 
+// All four share one 24x24 grid, a 3-21 live area and the same 1.5 round stroke (set on the
+// <svg>), so they read as one set. Outline only: no filled sub-shapes.
 const icons = {
-  email: (
-    <path d="M3 5h18v14H3V5Zm0 0 9 7 9-7" />
-  ),
+  email: <path d="M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2ZM3.5 7.5 12 13.5l8.5-6" />,
   linkedin: (
-    <path d="M6 8v10M6 5v.01M11 18v-6a3 3 0 0 1 6 0v6M11 12v6" />
+    <path d="M6 3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3ZM8 10.5V17M8 7.5v.01M12 17v-6.5M12 13.25a2.75 2.75 0 0 1 5.5 0V17" />
   ),
   github: (
     <path d="M9 19c-4.5 1.5-4.5-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2-.2 4-1 4-4.5a3.5 3.5 0 0 0-1-2.5 3.2 3.2 0 0 0-.1-2.4s-.9-.3-2.9 1a10 10 0 0 0-5 0c-2-1.3-2.9-1-2.9-1a3.2 3.2 0 0 0-.1 2.4A3.5 3.5 0 0 0 5.5 12c0 3.5 2 4.3 4 4.5-.5.5-.5 1-.5 1.8V21" />
   ),
   whatsapp: (
-    <path d="M7 17.5 3.5 20l1.2-3.7A8 8 0 1 1 7 17.5Zm2.2-8.7c.2-.5.4-.5.6-.5h.5c.2 0 .4 0 .5.4.2.5.6 1.7.7 1.8.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.2.3-.2.5-.1.2.1 1.4.7 1.6.8.2.1.4.1.4.3 0 .2 0 1-.3 1.4-.4.5-1.3 1-2.3.9-1.7-.2-3.4-1-4.7-2.3-1.1-1-2-2.4-2.3-3.5-.3-1 0-1.9.2-2.2Z" />
+    <path d="M3 21l1.7-5A9 9 0 1 1 8 19.3L3 21ZM9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .75a4.5 4.5 0 0 1-2-2l.75-1-1-2L9 8.5Z" />
   ),
 };
 
@@ -51,12 +51,14 @@ export default function Contact() {
   return (
     <section id="contact" className="relative px-6 py-section sm:px-10 lg:px-16">
       <div className="mx-auto max-w-container">
-        <h2 className="font-display text-h1 font-semibold">Start a project</h2>
-        <p className="mt-4 max-w-md text-ink-2">
-          Available for freelance AI video production work. Reach out directly.
-        </p>
+        <div data-reveal>
+          <h2 className="font-display text-h1 font-semibold">Start a project</h2>
+          <p className="mt-4 max-w-md text-ink-2">
+            Available for freelance AI video production work. Reach out directly.
+          </p>
+        </div>
 
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div data-reveal className="mt-6 flex flex-wrap gap-2">
           {services.map((service) => (
             <span key={service} className="tag h-9 px-4 text-sm">
               {service}
@@ -68,6 +70,7 @@ export default function Contact() {
           {links.map((link) => (
             <a
               key={link.label}
+              data-reveal
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
