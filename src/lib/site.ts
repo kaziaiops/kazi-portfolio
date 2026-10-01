@@ -1,5 +1,5 @@
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kazi-portfolio.vercel.app"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kaziyousuf.me"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Kazi Yousuf";

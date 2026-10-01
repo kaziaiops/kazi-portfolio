@@ -1,33 +1,9 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import GleamText from "./GleamText";
 import Image from "next/image";
 import { SHOWREEL } from "@/lib/projects";
 import ShowreelDialog from "./ShowreelDialog";
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
-
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: reduceMotion ? 0 : 0.12,
-        delayChildren: reduceMotion ? 0 : 0.15,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: reduceMotion ? 0.01 : 0.7, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
   return (
     <section
       id="top"
@@ -56,6 +32,7 @@ export default function Hero() {
           fill
           priority
           sizes="(min-width: 1024px) 58vw, 100vw"
+          quality={70}
           className="object-cover object-[50%_30%]"
         />
       </div>
@@ -66,34 +43,24 @@ export default function Hero() {
         aria-hidden
       />
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 w-full px-6 pb-16 pt-28 sm:px-10 sm:pb-28 sm:pt-40 lg:px-16"
+      <div className="relative z-10 w-full px-6 pb-16 pt-28 sm:px-10 sm:pb-28 sm:pt-40 lg:px-16"
       >
-        <motion.p
-          variants={item}
-          className="mb-4 text-sm text-ink/70 sm:text-base"
-        >
+        <p className="mb-4 text-sm text-ink/70 sm:text-base">
           Kazi Yousuf — Dhaka, Bangladesh
-        </motion.p>
-        <motion.h1
-          variants={item}
-          className="font-display max-w-4xl text-6xl font-normal sm:text-7xl"
+        </p>
+        <h1 className="font-display max-w-4xl text-6xl font-normal sm:text-7xl"
         >
           <GleamText text="Character-consistent AI video, built shot by shot." />
-        </motion.h1>
-        <motion.p
-          variants={item}
+        </h1>
+        <p
           className="sweep-wrap mt-6 max-w-xl text-lg text-ink/75 sm:text-xl"
           style={{ "--sweep-delay": "0.4s" } as React.CSSProperties}
         >
           Voice to prompt to generated shot to final cut — one person,
           start to finish.
-        </motion.p>
+        </p>
 
-        <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center gap-4">
           <ShowreelDialog />
           <a
             href="#work"
@@ -101,22 +68,13 @@ export default function Hero() {
           >
             See the work
           </a>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: reduceMotion ? 0 : 1.1, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+      <div
+        className="absolute bottom-6 left-1/2 z-10 h-9 w-px -translate-x-1/2 bg-gradient-to-b from-ink/60 to-transparent"
         aria-hidden
-      >
-        <motion.div
-          animate={reduceMotion ? {} : { y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="h-9 w-[1px] bg-gradient-to-b from-ink/60 to-transparent"
-        />
-      </motion.div>
+      />
 
     </section>
   );

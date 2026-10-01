@@ -107,7 +107,7 @@ export default function Contact() {
               >
                 {link.icon}
               </svg>
-              <span className="mt-4 block text-sm text-ink/50">{link.label}</span>
+              <span className="mt-4 block text-sm text-ink/65">{link.label}</span>
               <p className="mt-1 break-words text-ink group-hover:text-gold transition-colors">
                 {link.value}
               </p>
@@ -115,7 +115,7 @@ export default function Contact() {
           ))}
         </div>
 
-        <p className="mt-16 text-sm text-ink/40">
+        <p className="mt-16 text-sm text-ink/60">
           © {new Date().getFullYear()} Kazi Yousuf, Dhaka, Bangladesh.
         </p>
       </div>

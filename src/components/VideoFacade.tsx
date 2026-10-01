@@ -7,7 +7,7 @@ import { youtubeEmbedUrl, youtubeThumbnails } from "@/lib/projects";
 interface VideoFacadeProps {
   youtubeId: string;
   title: string;
-  /** Local poster used if the YouTube thumbnail fails to load. */
+  /** Local poster, tried first (sharper than YouTube thumbnails); YouTube thumbnails are the fallback. */
   poster: string;
   aspect: "portrait" | "landscape";
   sizes: string;
@@ -31,9 +31,9 @@ export default function VideoFacade({
   style,
 }: VideoFacadeProps) {
   const [active, setActive] = useState(autoLoad);
-  // index into [maxres, hq]; one past the end means use the local poster
+  // index into [local poster, maxres, hq]; falls through on load error
   const [thumbIndex, setThumbIndex] = useState(0);
-  const thumbs = youtubeThumbnails(youtubeId);
+  const thumbs = youtubeThumbnails(youtubeId, poster);
 
   const boxStyle: CSSProperties = {
     aspectRatio: aspect === "portrait" ? "9 / 16" : "16 / 9",
@@ -61,7 +61,7 @@ export default function VideoFacade({
           className="group absolute inset-0 block h-full w-full cursor-pointer"
         >
           <Image
-            src={thumbs[thumbIndex] ?? poster}
+            src={thumbs[thumbIndex] ?? thumbs[thumbs.length - 1]}
             alt={`${title} — video thumbnail`}
             fill
             sizes={sizes}

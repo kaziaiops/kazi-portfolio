@@ -1,18 +1,15 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { projects } from "@/lib/projects";
 import ProjectCard from "./ProjectCard";
 import GleamText from "./GleamText";
 
-const AmbientField = dynamic(() => import("./AmbientField"), { ssr: false });
-
 export default function FilmstripGallery() {
   const trackRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const track = trackRef.current;
@@ -64,10 +61,6 @@ export default function FilmstripGallery() {
 
   return (
     <section id="work" className="relative py-28 sm:py-36">
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-60">
-        {!reduceMotion && <AmbientField />}
-      </div>
-
       <div className="mb-12 px-6 sm:px-10 lg:px-16">
         <h2 className="font-display text-3xl sm:text-4xl">
           <GleamText text="Selected work" />

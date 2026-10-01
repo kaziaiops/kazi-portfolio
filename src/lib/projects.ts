@@ -16,9 +16,13 @@ export function youtubeEmbedUrl(id: string) {
   return `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`;
 }
 
-/** Thumbnail candidates, best first: maxres may 404 on some videos, hq always exists. */
-export function youtubeThumbnails(id: string) {
+/**
+ * Thumbnail candidates, best first. A local poster (sharper, full 1080x1920) wins when
+ * provided; maxres may 404 on some videos, hq always exists.
+ */
+export function youtubeThumbnails(id: string, poster?: string) {
   return [
+    ...(poster ? [poster] : []),
     `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
     `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
   ];
