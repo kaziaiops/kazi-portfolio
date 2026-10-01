@@ -130,9 +130,9 @@ export const projects: Project[] = [
     title: "Blindside Effect",
     status: "In Production",
     description:
-      "A weekly psychology and cognitive-bias explainer channel - written, voiced, and edited solo.",
+      "A weekly psychology and cognitive-bias explainer series. I produce and edit the videos.",
     detail:
-      "Five episodes covering biases and behavioral effects - Dunning-Kruger, the Halo Effect, Murphy's Law, and more. Separate from the AI-generated character work above: scripted, recorded, and cut by hand, released on a weekly cadence.",
+      "Five episodes covering biases and behavioral effects, including Dunning-Kruger, the Halo Effect and Murphy's Law. Separate from the AI-generated character work above. My role is producing and editing the videos.",
     tags: ["YouTube", "Explainer Series", "5 Episodes"],
     videos: [],
     poster: "/images/blindside-effect.svg",

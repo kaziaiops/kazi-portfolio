@@ -28,7 +28,7 @@ What is on the new site:
   shots generated and animation underway, so I have marked it In Production.
 - A vertical microdrama, The CEO's Forbidden Assistant, nine shots for episode one. Also In
   Production.
-- Blindside Effect, a weekly psychology explainer series, produced solo.
+- Blindside Effect, a weekly psychology explainer series. I produce and edit the videos.
 
 I flag every project by status, finished or not.
 
