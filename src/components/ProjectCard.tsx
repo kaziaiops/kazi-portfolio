@@ -20,6 +20,7 @@ interface ProjectCardProps {
 const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
   ({ project, reduceMotion }, ref) => {
     const previewVideo = project.videos[0];
+    const hasPage = project.videos.length > 0;
     const mediaRef = useRef<HTMLDivElement>(null);
     const [inView, setInView] = useState(false);
 
@@ -27,7 +28,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
     // of requiring hover. The iframe is only mounted while visible, so
     // off-screen cards load no players and stop playing when scrolled away.
     useEffect(() => {
-      if (reduceMotion || project.external || !previewVideo) return;
+      if (reduceMotion || !hasPage) return;
       const el = mediaRef.current;
       if (!el) return;
       const observer = new IntersectionObserver(
@@ -36,7 +37,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
       );
       observer.observe(el);
       return () => observer.disconnect();
-    }, [reduceMotion, project.external, previewVideo]);
+    }, [reduceMotion, hasPage]);
 
     const mediaClassName =
       "glass glass-glow relative block overflow-hidden border-x border-ink/10";
@@ -53,7 +54,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           sizes="(max-width: 640px) 88vw, 560px"
           className="object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
         />
-        {!project.external && previewVideo && inView && (
+        {hasPage && inView && (
           <iframe
             className="pointer-events-none absolute inset-0 h-full w-full border-0 opacity-90 transition-opacity duration-300 group-hover:opacity-100"
             src={youtubeEmbedUrl(previewVideo.youtubeId, { background: true })}
@@ -71,7 +72,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           aria-hidden
         />
 
-        {!project.external && (
+        {hasPage && (
           <div
             className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             aria-hidden
@@ -113,11 +114,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
                 {tag}
               </span>
             ))}
-            {project.external ? (
-              <span className="ml-auto text-xs text-gold/90 group-hover:text-gold">
-                {project.external.cta}
-              </span>
-            ) : (
+            {hasPage && (
               <span className="ml-auto rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs text-gold transition-colors group-hover:border-gold group-hover:bg-gold/20">
                 Open
               </span>
@@ -138,16 +135,10 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
       >
         <div className="sprocket-row h-3 rounded-t-sm" aria-hidden />
 
-        {project.external ? (
-          <a
-            href={project.external.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={mediaClassName}
-            style={mediaStyle}
-          >
+        {!hasPage ? (
+          <div className={mediaClassName} style={mediaStyle}>
             {mediaContent}
-          </a>
+          </div>
         ) : (
           <Link
             href={`/work/${project.slug}`}

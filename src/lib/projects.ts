@@ -39,8 +39,6 @@ export interface Project {
   videos: ProjectVideo[];
   poster: string;
   aspect: "portrait" | "landscape";
-  /** When set, the whole card links out to this URL instead of the project detail page. */
-  external?: { href: string; cta: string };
 }
 
 export const projects: Project[] = [
@@ -128,9 +126,5 @@ export const projects: Project[] = [
     videos: [],
     poster: "/images/blindside-effect.svg",
     aspect: "landscape",
-    external: {
-      href: "https://www.youtube.com/@BlindsideEffect",
-      cta: "Watch on YouTube",
-    },
   },
 ];

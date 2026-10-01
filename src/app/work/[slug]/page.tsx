@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import GleamText from "@/components/GleamText";
+import { SITE_NAME } from "@/lib/site";
 import { projects, youtubeEmbedUrl, type ProjectStatus } from "@/lib/projects";
 
 const statusStyles: Record<ProjectStatus, string> = {
@@ -12,7 +13,7 @@ const statusStyles: Record<ProjectStatus, string> = {
 };
 
 export function generateStaticParams() {
-  return projects.filter((p) => !p.external).map((p) => ({ slug: p.slug }));
+  return projects.filter((p) => p.videos.length > 0).map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({
@@ -21,12 +22,21 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const project = projects.find((p) => p.slug === params.slug);
-  return { title: project ? `${project.title} — Kazi Yousuf` : "Kazi Yousuf" };
+  if (!project) return { title: SITE_NAME };
+  const title = project.title;
+  const url = `/work/${project.slug}`;
+  return {
+    title,
+    description: project.description,
+    alternates: { canonical: url },
+    openGraph: { type: "article", url, title: `${title} | ${SITE_NAME}`, description: project.description, siteName: SITE_NAME },
+    twitter: { card: "summary_large_image", title: `${title} | ${SITE_NAME}`, description: project.description },
+  };
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
   const project = projects.find((p) => p.slug === params.slug);
-  if (!project || project.external) notFound();
+  if (!project || project.videos.length === 0) notFound();
 
   return (
     <>

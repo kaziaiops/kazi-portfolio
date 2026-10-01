@@ -36,8 +36,6 @@ yarn-error.log*
 next-env.d.ts
 .claude/
 
-# local video source files — playback is served via YouTube (Unlisted) embeds
-public/videos/*.mp4
 
 .vercel
 .env*

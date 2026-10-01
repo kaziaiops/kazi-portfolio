@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
+import PersonJsonLd from "@/components/PersonJsonLd";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -17,9 +19,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kazi Yousuf — AI Video Creator",
-  description:
-    "Kazi Yousuf builds character-consistent AI video in Dhaka, Bangladesh — script to voice to generated shot to final cut, solo, start to finish.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {
@@ -37,7 +53,8 @@ export default function RootLayout({
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="bg-bg text-ink font-sans antialiased">
         {children}
-        <SpeedInsights />
+        <PersonJsonLd />
+        {process.env.NODE_ENV === "production" && <SpeedInsights />}
       </body>
     </html>
   );
