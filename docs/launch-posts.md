@@ -11,9 +11,9 @@ Site: https://kaziyousuf.me
 
 I make video without a camera.
 
-Every project starts as a script and ends as a cut. In between: voiceover written and
-timed, references generated and locked, every shot generated, then edited into a final
-sequence. I run all of it myself, from Dhaka.
+You send the script. I produce the video from it: voiceover generated and timed, references
+generated and locked, every shot generated, then edited into a final sequence. I run all of
+it myself, from Dhaka.
 
 The two rules I hold to on every project:
 
@@ -28,11 +28,11 @@ What is on the new site:
   shots generated and animation underway, so I have marked it In Production.
 - A vertical microdrama, The CEO's Forbidden Assistant, nine shots for episode one. Also In
   Production.
-- Blindside Effect, a weekly psychology explainer I write, voice and edit by hand.
+- Blindside Effect, a weekly psychology explainer series, produced solo.
 
 I flag every project by status, finished or not.
 
-If you need short-form video for a DTC or SaaS brand, there is a short brief form at the
+I am open to new projects and I reply within 8 hours. If you need short-form video for a DTC or SaaS brand, there is a short brief form at the
 bottom of the site: project type, length, deadline, platform and one line about the idea. It
 opens a pre-filled email or WhatsApp message to me.
 
@@ -46,14 +46,14 @@ https://kaziyousuf.me
 
 New portfolio is live: https://kaziyousuf.me
 
-AI video ads for DTC and SaaS, same face every shot. Script, voice, shots and final cut by
-one person, from Dhaka.
+AI video ads for DTC and SaaS, same face every shot. Voice, shots and final cut by one
+person, from Dhaka. You send the script, I produce the video from it.
 
 Two completed UGC ad campaigns, a six-ad spec series and a vertical microdrama in
 production. Everything is labelled by status.
 
-Got a short-form project? The brief form at the bottom opens a pre-filled email or WhatsApp
-message to me.
+Open to new projects. Got a short-form project? The brief form at the bottom opens a
+pre-filled email or WhatsApp message to me, and I reply within 8 hours.
 
 ---
 
@@ -61,7 +61,7 @@ message to me.
 
 Same face. Every shot. No camera.
 
-Script > voice > references > shots > cut, all by one person.
+You send the script > voice > references > shots > cut, all by one person.
 
 Portfolio and brief form: kaziyousuf.me (link in bio)
 

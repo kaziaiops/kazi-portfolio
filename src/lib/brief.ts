@@ -7,6 +7,7 @@ export const BRIEF_TYPES = [
   "Explainer & narrative video",
   "Something else",
 ];
+export const BRIEF_FORMATS = ["9:16", "16:9"];
 export const BRIEF_LENGTHS = ["Under 30 seconds", "30 to 60 seconds", "1 to 2 minutes", "Over 2 minutes"];
 export const BRIEF_PLATFORMS = [
   "Instagram Reels",
@@ -27,6 +28,7 @@ export function buildBriefMessage(f: FormData) {
     BRIEF_GREETING,
     "",
     `Project type: ${get("type")}`,
+    `Format: ${get("format") || "Not sure yet"}`,
     `Length: ${get("length") || "Not sure yet"}`,
     `Deadline: ${get("deadline") || "No fixed date"}`,
     `Platform: ${get("platform") || "Not sure yet"}`,

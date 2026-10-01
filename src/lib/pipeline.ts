@@ -17,8 +17,8 @@ export interface PipelineStage {
 export const PIPELINE: PipelineStage[] = [
   {
     id: "script",
-    name: "Script",
-    summary: "Every project starts as a script.",
+    name: "Your script",
+    summary: "You send the script. I produce the video from it.",
     tools: [
       {
         tool: "CineFlow",
@@ -29,7 +29,7 @@ export const PIPELINE: PipelineStage[] = [
   {
     id: "voice",
     name: "Voice",
-    summary: "Voiceover written and timed before any shot is generated.",
+    summary: "Voiceover is generated and timed before any shot is generated.",
     tools: [{ tool: "ElevenLabs", use: "Voiceover generation" }],
   },
   {

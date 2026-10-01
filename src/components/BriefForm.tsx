@@ -1,4 +1,4 @@
-import { BRIEF_GREETING, BRIEF_LENGTHS, BRIEF_PLATFORMS, BRIEF_TYPES, mailtoUrl, whatsappUrl } from "@/lib/brief";
+import { BRIEF_FORMATS, BRIEF_GREETING, BRIEF_LENGTHS, BRIEF_PLATFORMS, BRIEF_TYPES, mailtoUrl, whatsappUrl } from "@/lib/brief";
 import { CONTACT } from "@/lib/site";
 import BriefFormEnhancer from "./BriefFormEnhancer";
 
@@ -8,7 +8,7 @@ import BriefFormEnhancer from "./BriefFormEnhancer";
  * form posts to the same mailto: address, and the two plain links underneath always work.
  */
 export default function BriefForm() {
-  const fallback = mailtoUrl(`${BRIEF_GREETING}\n\nProject type:\nLength:\nDeadline:\nPlatform:\nBrief:`);
+  const fallback = mailtoUrl(`${BRIEF_GREETING}\n\nProject type:\nFormat:\nLength:\nDeadline:\nPlatform:\nBrief:`);
 
   return (
     <form
@@ -25,8 +25,8 @@ export default function BriefForm() {
         Brief to quote
       </h3>
       <p className="mt-2 max-w-xl text-sm text-ink-2">
-        Five quick answers. It opens a pre-filled email or WhatsApp message to me, nothing is
-        stored on this site.
+        Six quick answers. It opens a pre-filled email or WhatsApp message to me, nothing is
+        stored on this site. I reply within 8 hours.
       </p>
 
       <div className="mt-6 grid gap-5 md:grid-cols-2">
@@ -43,6 +43,16 @@ export default function BriefForm() {
             ))}
           </select>
           <p id="brief-type-err" role="alert" hidden className="field-err" />
+        </div>
+
+        <div className="field">
+          <label htmlFor="brief-format">Format</label>
+          <select id="brief-format" name="format" defaultValue="">
+            <option value="">Not sure yet</option>
+            {BRIEF_FORMATS.map((f) => (
+              <option key={f}>{f}</option>
+            ))}
+          </select>
         </div>
 
         <div className="field">

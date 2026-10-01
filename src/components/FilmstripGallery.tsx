@@ -14,8 +14,8 @@ export default function FilmstripGallery() {
       >
         <h2 className="font-display text-h1 font-semibold">Selected work</h2>
         <p className="mt-4 max-w-xl text-ink-2">
-          Four projects across AI-generated video and a weekly explainer series, all written,
-          produced and edited solo.
+          Four projects across AI-generated video and a weekly explainer series, all produced
+          and edited solo.
         </p>
       </div>
 

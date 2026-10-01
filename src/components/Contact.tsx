@@ -54,13 +54,13 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="cv-auto relative px-6 py-section [--cv-h:2118px] sm:px-10 sm:[--cv-h:1410px] lg:px-16 lg:[--cv-h:1222px]"
+      className="cv-auto relative px-6 py-section [--cv-h:2216px] sm:px-10 sm:[--cv-h:1508px] lg:px-16 lg:[--cv-h:1320px]"
     >
       <div className="mx-auto max-w-container">
         <div data-reveal>
           <h2 className="font-display text-h1 font-semibold">Start a project</h2>
           <p className="mt-4 max-w-md text-ink-2">
-            Available for freelance AI video production work. Reach out directly.
+            Open to new projects. I reply within 8 hours. Reach out directly.
           </p>
         </div>
 

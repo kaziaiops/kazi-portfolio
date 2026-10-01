@@ -5,13 +5,13 @@ export const SITE_URL = (
 export const SITE_NAME = "Kazi Yousuf";
 export const SITE_TITLE = "Kazi Yousuf | Character-Consistent AI Video for Ads and Short-Form";
 export const SITE_DESCRIPTION =
-  "Character-consistent AI video from Dhaka, Bangladesh: UGC and spec ads, vertical short-form and explainer video, made solo from script to final cut.";
+  "Character-consistent AI video from Dhaka, Bangladesh: UGC and spec ads, vertical short-form and explainer video, produced solo from your script.";
 
 /** Hero copy (option A, tentative). Alternatives are in docs/hero-options.md. */
 export const HERO = {
   headline: "AI video ads for DTC and SaaS, same face every shot.",
   subhead:
-    "Script, voice, shots and final cut by one person, from Dhaka, Bangladesh.",
+    "Voice, shots and final cut by one person, from Dhaka, Bangladesh.",
 } as const;
 
 /** The only contact details on the site; every link and the brief form read from here. */

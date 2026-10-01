@@ -62,7 +62,10 @@ function initReveals(includeStages: boolean) {
   });
 }
 
-/** Desktop: pin the section and walk script > voice > reference > shot > cut on scroll. */
+/**
+ * Desktop: pin the section and walk the five stages on scroll.
+ * Returns an undo function when pinned, or undefined when it bailed to the stacked list.
+ */
 function initPipelinePinned() {
   const section = document.querySelector<HTMLElement>("#pipeline");
   const pin = section?.querySelector<HTMLElement>(".pipeline-pin");
@@ -74,6 +77,11 @@ function initPipelinePinned() {
   if (stages.length < 2) return;
 
   section.dataset.mode = "pinned";
+  // short windows: if the pinned layout is taller than the viewport it would clip, so stay a list
+  if (pin.getBoundingClientRect().height > window.innerHeight + 1) {
+    delete section.dataset.mode;
+    return;
+  }
   gsap.set(stages.slice(1), { opacity: 0, y: 28 });
   gsap.set(rail, { opacity: 0.4 });
   gsap.set(rail[0], { opacity: 1 });
@@ -116,11 +124,10 @@ export default function MotionRoot() {
       (ctx) => {
         const { motion, pin } = ctx.conditions as { motion: boolean; pin: boolean };
         if (!motion) return; // reduced motion: leave everything static
-        let undoPin: void | (() => void);
         // create order matters: the pin goes first so later triggers measure after its spacer
-        if (pin) undoPin = initPipelinePinned();
+        const undoPin = pin ? initPipelinePinned() : undefined;
         initFilmstrip();
-        initReveals(!pin);
+        initReveals(!undoPin);
         return () => undoPin?.();
       },
     );

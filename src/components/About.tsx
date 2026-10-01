@@ -5,7 +5,7 @@ export default function About() {
         <div data-reveal>
           <h2 className="font-display text-h1 font-semibold">About</h2>
           <p className="mt-4 max-w-md text-ink-2">
-            Script to voice to generated shot to final cut: one continuous pipeline, run solo.
+            Voice to generated shot to final cut: one continuous pipeline, run solo.
           </p>
 
           <div className="mt-12">
@@ -21,8 +21,8 @@ export default function About() {
 
         <div className="space-y-6 text-ink-2">
           <p data-reveal>
-            I build video without a camera. Every project starts as a script and ends as a cut:
-            voiceover written and timed, references generated and locked, each shot generated frame
+            I build video without a camera. Every project starts from your script and ends as a cut:
+            voiceover generated and timed, references generated and locked, each shot generated frame
             by frame, then edited into a final sequence. I run all of it myself: character design,
             prompt writing, generation, and the edit.
           </p>

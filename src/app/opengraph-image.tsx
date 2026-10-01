@@ -10,6 +10,6 @@ export default function Image() {
   return renderOgImage(
     HERO.headline,
     "Kazi Yousuf | AI Video Creator",
-    "Dhaka, Bangladesh · Script to voice to shot to final cut",
+    "Dhaka, Bangladesh · Voice to shot to final cut",
   );
 }
