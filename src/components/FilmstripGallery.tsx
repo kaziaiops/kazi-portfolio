@@ -91,7 +91,6 @@ export default function FilmstripGallery() {
           <ProjectCard
             key={project.slug}
             project={project}
-            reduceMotion={!!reduceMotion}
             ref={(el) => {
               if (el) cardRefs.current[i] = el;
             }}

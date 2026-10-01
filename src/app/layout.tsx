@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import SpeedInsightsGate from "@/components/SpeedInsightsGate";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import PersonJsonLd from "@/components/PersonJsonLd";
 import "./globals.css";
@@ -54,7 +54,7 @@ export default function RootLayout({
       <body className="bg-bg text-ink font-sans antialiased">
         {children}
         <PersonJsonLd />
-        {process.env.NODE_ENV === "production" && <SpeedInsights />}
+        <SpeedInsightsGate />
       </body>
     </html>
   );

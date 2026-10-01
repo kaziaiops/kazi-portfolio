@@ -1,22 +1,27 @@
-/** Unlisted YouTube video ID for the hero background reel. */
-export const HERO_REEL_ID = "CozzKgiWBO8";
+/**
+ * Showreel opened by the hero's "Watch Showreel" button.
+ * TODO: replace with the real showreel (unlisted YouTube ID + a poster frame)
+ * once it is cut. Until then this points at an existing project video.
+ */
+export const SHOWREEL = {
+  youtubeId: "KcmQI7_WJEU",
+  poster: "/images/project-ceo-drama.jpg",
+  title: "Showreel",
+  aspect: "portrait" as "portrait" | "landscape",
+};
 
-interface EmbedOptions {
-  /** Muted looping background playback with no player chrome. */
-  background?: boolean;
+/** Privacy-enhanced embed; only ever rendered after a click (see VideoFacade). */
+export function youtubeEmbedUrl(id: string) {
+  const params = new URLSearchParams({ rel: "0", modestbranding: "1", playsinline: "1", autoplay: "1" });
+  return `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`;
 }
 
-export function youtubeEmbedUrl(id: string, { background }: EmbedOptions = {}) {
-  const params = new URLSearchParams({ rel: "0", modestbranding: "1", playsinline: "1" });
-  if (background) {
-    params.set("autoplay", "1");
-    params.set("mute", "1");
-    params.set("loop", "1");
-    params.set("playlist", id); // required for loop to work
-    params.set("controls", "0");
-    params.set("disablekb", "1");
-  }
-  return `https://www.youtube.com/embed/${id}?${params.toString()}`;
+/** Thumbnail candidates, best first: maxres may 404 on some videos, hq always exists. */
+export function youtubeThumbnails(id: string) {
+  return [
+    `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+    `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+  ];
 }
 
 export type ProjectStatus = "Completed" | "In Production" | "Coming Soon";

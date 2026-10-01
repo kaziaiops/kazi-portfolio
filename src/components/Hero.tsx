@@ -2,7 +2,9 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import GleamText from "./GleamText";
-import { HERO_REEL_ID, youtubeEmbedUrl } from "@/lib/projects";
+import Image from "next/image";
+import { SHOWREEL } from "@/lib/projects";
+import ShowreelDialog from "./ShowreelDialog";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -45,20 +47,18 @@ export default function Hero() {
         aria-hidden
       />
 
-      {/* YouTube can't object-cover, so oversize a 16:9 frame to always cover the section */}
-      {!reduceMotion && (
-        <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-70" aria-hidden>
-          <iframe
-            className="absolute left-1/2 top-1/2 h-[max(100%,56.25vw)] w-[max(100%,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0"
-            src={youtubeEmbedUrl(HERO_REEL_ID, { background: true })}
-            title="Showreel background"
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            tabIndex={-1}
-          />
-        </div>
-      )}
+      {/* Poster-only hero: no player is loaded until "Watch Showreel" is clicked.
+          TODO: swap in the real showreel loop (muted, <5MB, lazy, with poster) here. */}
+      <div className="absolute inset-0 opacity-30 lg:left-[35%] lg:opacity-70 lg:[mask-image:linear-gradient(to_right,transparent,black_30%)]" aria-hidden>
+        <Image
+          src={SHOWREEL.poster}
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          className="object-cover object-[50%_30%]"
+        />
+      </div>
 
       {/* legibility scrim */}
       <div
@@ -93,13 +93,15 @@ export default function Hero() {
           start to finish.
         </motion.p>
 
-        <motion.a
-          variants={item}
-          href="#work"
-          className="mt-10 inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm text-ink/90 transition-colors hover:border-gold hover:text-gold"
-        >
-          See the work
-        </motion.a>
+        <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
+          <ShowreelDialog />
+          <a
+            href="#work"
+            className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-3 text-sm text-ink/90 transition-colors hover:border-gold hover:text-gold"
+          >
+            See the work
+          </a>
+        </motion.div>
       </motion.div>
 
       <motion.div
@@ -116,14 +118,6 @@ export default function Hero() {
         />
       </motion.div>
 
-      <a
-        href="https://www.pexels.com/video/dynamic-video-editing-on-professional-software-36036747/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute bottom-3 right-4 z-10 text-xs text-ink/35 transition-colors hover:text-ink/60"
-      >
-        Background footage: Pexels
-      </a>
     </section>
   );
 }

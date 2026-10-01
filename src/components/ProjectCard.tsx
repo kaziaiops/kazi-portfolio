@@ -1,9 +1,7 @@
-"use client";
-
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { youtubeEmbedUrl, type Project } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import GleamText from "./GleamText";
 
 const statusStyles: Record<Project["status"], string> = {
@@ -14,113 +12,41 @@ const statusStyles: Record<Project["status"], string> = {
 
 interface ProjectCardProps {
   project: Project;
-  reduceMotion: boolean;
 }
 
+/** Poster-only card (no player): the video lives behind VideoFacade on the project page. */
 const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
-  ({ project, reduceMotion }, ref) => {
-    const previewVideo = project.videos[0];
+  ({ project }, ref) => {
     const hasPage = project.videos.length > 0;
-    const mediaRef = useRef<HTMLDivElement>(null);
-    const [inView, setInView] = useState(false);
 
-    // Cards autoplay a muted YouTube preview while scrolled into view instead
-    // of requiring hover. The iframe is only mounted while visible, so
-    // off-screen cards load no players and stop playing when scrolled away.
-    useEffect(() => {
-      if (reduceMotion || !hasPage) return;
-      const el = mediaRef.current;
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => setInView(entry.isIntersecting),
-        { threshold: 0.4 },
-      );
-      observer.observe(el);
-      return () => observer.disconnect();
-    }, [reduceMotion, hasPage]);
-
-    const mediaClassName =
-      "glass glass-glow relative block overflow-hidden border-x border-ink/10";
-    const mediaStyle: React.CSSProperties = {
-      aspectRatio: project.aspect === "portrait" ? "9 / 16" : "16 / 9",
-    };
-
-    const mediaContent = (
-      <div ref={mediaRef} className="absolute inset-0">
+    const media = (
+      <div
+        className="glass glass-glow relative block overflow-hidden border-x border-ink/10"
+        style={{ aspectRatio: project.aspect === "portrait" ? "9 / 16" : "16 / 9" }}
+      >
         <Image
           src={project.poster}
-          alt=""
+          alt={`${project.title} — poster`}
           fill
-          sizes="(max-width: 640px) 88vw, 560px"
-          className="object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+          sizes="(max-width: 640px) 78vw, 340px"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
-        {hasPage && inView && (
-          <iframe
-            className="pointer-events-none absolute inset-0 h-full w-full border-0 opacity-90 transition-opacity duration-300 group-hover:opacity-100"
-            src={youtubeEmbedUrl(previewVideo.youtubeId, { background: true })}
-            title={`${project.title} preview`}
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            tabIndex={-1}
-            aria-hidden
-          />
-        )}
-
         <div
-          className="absolute inset-0 bg-gradient-to-t from-bg/95 via-bg/25 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-bg/60 via-transparent to-transparent"
           aria-hidden
         />
-
         {hasPage && (
-          <div
-            className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            aria-hidden
-          >
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-gold/70 bg-bg/40 backdrop-blur-sm">
-              <div className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-gold" />
+          <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
+            <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold/70 bg-bg/50 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+              <div className="ml-1 h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-gold" />
             </div>
           </div>
         )}
-
         <span
           className={`absolute right-3 top-3 rounded-full border px-2.5 py-1 text-xs backdrop-blur-sm ${statusStyles[project.status]}`}
         >
           {project.status}
         </span>
-
-        <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-          <h3 className="font-display text-xl sm:text-2xl">
-            <GleamText text={project.title} />
-          </h3>
-          <p
-            className="sweep-wrap mt-1.5 text-sm text-ink/75"
-            style={{ "--sweep-delay": "0.6s", "--sweep-dur": "7s" } as React.CSSProperties}
-          >
-            {project.description}
-          </p>
-          <p
-            className="sweep-wrap mt-2 hidden text-xs text-ink/60 sm:block"
-            style={{ "--sweep-delay": "1.8s", "--sweep-dur": "7s" } as React.CSSProperties}
-          >
-            {project.detail}
-          </p>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-ink/15 px-2.5 py-1 text-xs text-ink/70"
-              >
-                {tag}
-              </span>
-            ))}
-            {hasPage && (
-              <span className="ml-auto rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs text-gold transition-colors group-hover:border-gold group-hover:bg-gold/20">
-                Open
-              </span>
-            )}
-          </div>
-        </div>
       </div>
     );
 
@@ -134,22 +60,43 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
         }}
       >
         <div className="sprocket-row h-3 rounded-t-sm" aria-hidden />
-
-        {!hasPage ? (
-          <div className={mediaClassName} style={mediaStyle}>
-            {mediaContent}
-          </div>
-        ) : (
+        {hasPage ? (
           <Link
             href={`/work/${project.slug}`}
-            className={mediaClassName}
-            style={mediaStyle}
+            aria-label={`${project.title} — open project`}
+            className="block"
           >
-            {mediaContent}
+            {media}
           </Link>
+        ) : (
+          media
         )}
-
         <div className="sprocket-row h-3 rounded-b-sm" aria-hidden />
+
+        <div className="px-1 pt-4">
+          <h3 className="font-display text-xl sm:text-2xl">
+            <GleamText text={project.title} />
+          </h3>
+          <p className="mt-1.5 text-sm text-ink/75">{project.description}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-ink/15 px-2.5 py-1 text-xs text-ink/70"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          {hasPage && (
+            <Link
+              href={`/work/${project.slug}`}
+              className="mt-4 inline-flex rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-sm text-gold transition-colors hover:border-gold hover:bg-gold/20"
+            >
+              Watch project
+            </Link>
+          )}
+        </div>
       </div>
     );
   },

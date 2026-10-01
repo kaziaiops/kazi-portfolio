@@ -2,9 +2,10 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
+import VideoFacade from "@/components/VideoFacade";
 import GleamText from "@/components/GleamText";
 import { SITE_NAME } from "@/lib/site";
-import { projects, youtubeEmbedUrl, type ProjectStatus } from "@/lib/projects";
+import { projects, type ProjectStatus } from "@/lib/projects";
 
 const statusStyles: Record<ProjectStatus, string> = {
   Completed: "border-gold/40 text-gold",
@@ -78,15 +79,13 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           {project.videos.map((v) => (
             <div key={v.youtubeId}>
               <p className="mb-3 text-sm text-ink/60">{v.label}</p>
-              <iframe
-                className="glass glass-glow w-full rounded-sm"
-                style={{ aspectRatio: project.aspect === "portrait" ? "9 / 16" : "16 / 9" }}
-                src={youtubeEmbedUrl(v.youtubeId)}
+              <VideoFacade
+                youtubeId={v.youtubeId}
                 title={`${project.title} — ${v.label}`}
-                frameBorder="0"
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-                loading="lazy"
+                poster={v.poster}
+                aspect={project.aspect}
+                sizes="(max-width: 640px) 92vw, 440px"
+                className="w-full rounded-sm"
               />
             </div>
           ))}
